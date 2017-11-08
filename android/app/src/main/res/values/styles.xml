@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+    <style name="LaunchTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
         <!-- Show a splash screen on the activity. Automatically removed when
              Flutter draws its first frame -->
         <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
+
+
+    <!--<style name="FullscreenTheme" parent="MyMaterialTheme">-->
+        <!--<item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>-->
+        <!--<item name="android:windowActionBarOverlay">true</item>-->
+        <!--<item name="android:windowBackground">@null</item>-->
+    <!--</style>-->
+
+
+    <!--<style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">-->
+        <!--<item name="android:background">@color/black_overlay</item>-->
+    <!--</style>-->
 </resources>
