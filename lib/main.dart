@@ -4,6 +4,7 @@ import 'package:cupertino/IconGrid.dart';
 import 'package:cupertino/LauncherIcon.dart';
 import 'package:cupertino/Res.dart';
 import 'package:cupertino/StatusBar.dart';
+import 'package:cupertino/XStatusBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -29,12 +30,14 @@ class App extends StatelessWidget {
       height: 92.0,
       decoration: new BoxDecoration(
           gradient: new LinearGradient(
-              colors: [$Colors.yellowStart, $Colors.yellowEnd,],
+              colors: [
+                $Colors.yellowStart,
+                $Colors.yellowEnd,
+              ],
               begin: const FractionalOffset(0.0, 0.0),
               end: const FractionalOffset(1.0, 1.0),
               stops: [0.0, 1.0],
-              tileMode: TileMode.clamp)
-      ),
+              tileMode: TileMode.clamp)),
       alignment: FractionalOffset.bottomCenter,
       child: new Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,38 +60,44 @@ class App extends StatelessWidget {
       theme: theme,
       home: new Scaffold(
           body: new Stack(
+        children: <Widget>[
+          new Column(
             children: <Widget>[
-              new Column(
-                children: <Widget>[
-                  new Expanded(
-                      child: new Image.asset(
-                        $Asset.background,
-                        fit: BoxFit.cover,
-                      ))
-                ],
-              ),
-              new Positioned(child: new StatusBar(), top: 0.0, left: 0.0, right: 0.0,),
-              new Column(
-                children: <Widget>[
-                  new Container(
-                    height: 30.0,
-                  ),
-                  new Expanded(child: pager),
-                  new Container(
-                      margin: const EdgeInsets.only(bottom: 8.0),
-                      width: 100.0,
-                      child: new DotsIndicator(
-                          controller: pageController, itemCount: 2)),
-                  bottomArea,
-                ],
-              ),
+              new Expanded(
+                  child: new Image.asset(
+                $Asset.background,
+                fit: BoxFit.cover,
+              ))
             ],
-          )),
+          ),
+          new Positioned(
+            child: new XStatusBar(),
+            top: 0.0,
+            left: 0.0,
+            right: 0.0,
+          ),
+          new Column(
+            children: <Widget>[
+              new Container(
+                height: 40.0,
+              ),
+              new Expanded(child: pager),
+              new Container(
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                  width: 100.0,
+                  child: new DotsIndicator(
+                      controller: pageController, itemCount: 2)),
+              bottomArea,
+            ],
+          ),
+        ],
+      )),
     );
   }
 }
 
 var theme = new ThemeData(
-    primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.black,
-    platform: TargetPlatform.iOS,
+  primarySwatch: Colors.blue,
+  scaffoldBackgroundColor: Colors.black,
+  platform: TargetPlatform.iOS,
 );

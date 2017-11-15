@@ -14,4 +14,5 @@ class $Colors {
  */
 class $Asset {
   static const String background = "assets/img/ios-11-default-wallpaper.jpg";
+  static const String battery = "assets/img/psp-mini-hero-iphone-battery_2x.png";
 }
