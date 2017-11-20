@@ -12,23 +12,56 @@ void main() {
   runApp(new App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+
+  @override
+  State createState() {
+    return new AppState();
+  }
+}
+
+class AppState extends State<App> {
+  LauncherType type;
+
+
+  @override
+  void initState() {
+    type = LauncherType.normal;
+  }
+
   @override
   Widget build(BuildContext context) {
     final PageController pageController = new PageController();
 
-    final a = new IconGrid();
     final pager = new PageView.builder(
-      itemBuilder: (BuildContext context, int index) => a,
+      itemBuilder: (BuildContext context, int index) => new IconGrid(index),
       itemCount: 2,
       scrollDirection: Axis.horizontal,
       controller: pageController,
     );
 
+    Widget statusBar;
+    double statusBarHeight;
+    BorderRadius bottomAreaBorder;
+    double bottomAreaMargin;
+
+    if (type == LauncherType.iphoneX) {
+      statusBar = new XStatusBar();
+      statusBarHeight = 52.0;
+      bottomAreaBorder = new BorderRadius.all(new Radius.circular(34.0));
+      bottomAreaMargin = 10.0;
+    } else {
+      statusBar = new StatusBar();
+      statusBarHeight = 30.0;
+      bottomAreaMargin = 0.0;
+    }
+
     final bottomArea = new Container(
+      margin: new EdgeInsets.all(bottomAreaMargin),
       padding: const EdgeInsets.only(top: 16.0, bottom: 11.0),
       height: 92.0,
       decoration: new BoxDecoration(
+        borderRadius: bottomAreaBorder,
           gradient: new LinearGradient(
               colors: [
                 $Colors.yellowStart,
@@ -43,13 +76,19 @@ class App extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new LauncherIcon(
-            displayText: false,
-            icon: AppleIcon.getIconList().last,
+          new GestureDetector(
+            onTap: (){
+              setState(() { this.type = LauncherType.iphoneX; });
+            },
+            child: new LauncherIcon(
+              displayText: false,
+              icon: AppleIcon.getSafariIcon(),
+            ),
           ),
+
           new LauncherIcon(
             displayText: false,
-            icon: AppleIcon.getIconList().last,
+            icon: AppleIcon.getMessagesIcon(),
           ),
         ],
       ),
@@ -71,7 +110,7 @@ class App extends StatelessWidget {
             ],
           ),
           new Positioned(
-            child: new XStatusBar(),
+            child: statusBar,
             top: 0.0,
             left: 0.0,
             right: 0.0,
@@ -79,7 +118,7 @@ class App extends StatelessWidget {
           new Column(
             children: <Widget>[
               new Container(
-                height: 40.0,
+                height: statusBarHeight,
               ),
               new Expanded(child: pager),
               new Container(
@@ -101,3 +140,7 @@ var theme = new ThemeData(
   scaffoldBackgroundColor: Colors.black,
   platform: TargetPlatform.iOS,
 );
+
+enum LauncherType {
+  normal, iphoneX
+}

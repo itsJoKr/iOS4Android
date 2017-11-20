@@ -1,5 +1,6 @@
 import 'package:cupertino/Res.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class XStatusBar extends StatefulWidget {
   @override
@@ -9,14 +10,14 @@ class XStatusBar extends StatefulWidget {
 class _XStatusBarState extends State<XStatusBar> {
   @override
   Widget build(BuildContext context) {
-    final textStyle = new TextStyle(color: Colors.white, fontSize: 11.5);
+    final textStyle = new TextStyle(color: Colors.white, fontSize: 13.5);
     final notch =  new Expanded(
         child: new Container(
-          padding: const EdgeInsets.only(left: 35.0, right: 50.0),
+          padding: const EdgeInsets.only(left: 15.0, right: 50.0),
           child: new Container(
             alignment: FractionalOffset.topCenter,
-              width: 10.0,
-              height: 24.0,
+              width: 70.0,
+              height: 35.0,
               decoration: new BoxDecoration(
                 color: Colors.black,
                 shape: BoxShape.rectangle,
@@ -29,6 +30,8 @@ class _XStatusBarState extends State<XStatusBar> {
         )
     );
 
+    String time = (new DateFormat("jm")).format(new DateTime.now());
+
     return new Container(
         padding: const EdgeInsets.symmetric(horizontal: 7.0),
         child: new Row(
@@ -37,13 +40,13 @@ class _XStatusBarState extends State<XStatusBar> {
           children: <Widget>[
             new Align(
               child: new Text(
-                ("23:30AM" + "   "),
+                ("    " + time),
                 style: textStyle,
               ),
               alignment: FractionalOffset.center,
             ),
             notch,
-            new Image.asset($Asset.battery, width: 23.0,)
+            new Image.asset($Asset.battery, width: 28.0,)
           ],
         ));
   }

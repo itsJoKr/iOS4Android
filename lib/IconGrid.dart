@@ -4,9 +4,19 @@ import 'package:cupertino/Res.dart';
 import 'package:flutter/cupertino.dart';
 
 class IconGrid extends StatelessWidget {
+  final int page;
+
+  IconGrid(this.page);
+
+
   @override
   Widget build(BuildContext context) {
-    final list = AppleIcon.getIconList();
+    List<AppleIcon> list;
+    if (page == 0)
+      list = AppleIcon.getIconList();
+    else
+      list = AppleIcon.getIconListPage2();
+
 
     final row1 = new Row(
       crossAxisAlignment: CrossAxisAlignment.center,
